@@ -132,3 +132,26 @@ function avatar_creation(val) {
     }
   );
 }
+
+function generate_new_moment() {
+  var url = "http://localhost:3000/generate_image?message=";
+  var statClass = document.getElementById("stat_class");
+  var message =
+    statClass.innerText +
+    " fighting " +
+    game_data.result[act_id].encounters +
+    " in " +
+    game_data.result[act_id].environment;
+
+  var imageHolder = document.getElementById("imageHolder");
+  imageHolder.src = "assets/img/loading_image.jpg";
+  imageHolder.classList.remove("blurred");
+
+  $("#loadingModal").modal("show");
+
+  $.getJSON(url + message, function (data) {
+    imageHolder.src = data.url;
+    imageHolder.classList.add("blurred");
+    $("#loadingModal").modal("hide");
+  });
+}
