@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Quests</title>
+    <link
+      rel="stylesheet"
+      href="./assets/lib/bootstrap/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script src="./assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./assets/lib/jquery/jquery.min.js"></script>
+    <script src="./assets/js/game.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Story Quests</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navigationMenu"
+          aria-controls="navigationMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br />
+    <div class="container justify-content-center align-items-center">
+      <div class="card bg-dark text-white border-0">
+        <div
+          class="card-body align-items-center justify-content-center text-center"
+        >
+          <button class="btn btn-lg btn-primary" onclick="start_quest()">
+            Start New Quest
+          </button>
+          <hr />
+          <div>
+            <div id="status" class="w-80 align-items-center text-center d-none">
+              <div class="border">
+                <table
+                  class="table border table-dark table-striped table-bordered table-sm"
+                >
+                  <tr>
+                    <th colspan="4" id="stat_name">---</th>
+                  </tr>
+                  <tr>
+                    <th>Class</th>
+                    <td id="stat_class">---</td>
+                    <th>Level</th>
+                    <td id="stat_level">--</td>
+                  </tr>
+                  <tr>
+                    <th>Health</th>
+                    <td id="stat_health">--</td>
+                    <th>Mana</th>
+                    <td id="stat_mana">--</td>
+                  </tr>
+                  <tr>
+                    <th>Strength</th>
+                    <td id="stat_strength">--</td>
+                    <th>Wisdom</th>
+                    <td id="stat_wisdom">--</td>
+                  </tr>
+                  <tr>
+                    <th>Agility</th>
+                    <td id="stat_agility">--</td>
+                    <th>Luck</th>
+                    <td id="stat_luck">--</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">Skills: -</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div
+              id="chooseClass"
+              class="w-80 align-items-center text-center d-none"
+            >
+              <h1>Choose your class</h1>
+              <div class="btn-group p-5 border">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-custom-spacing"
+                  id="answerOption1"
+                  value="1"
+                  onclick="avatar_creation(this.value)"
+                >
+                  Option 1
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-custom-spacing"
+                  id="answerOption2"
+                  value="2"
+                  onclick="avatar_creation(this.value)"
+                >
+                  Option 2
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-custom-spacing"
+                  id="answerOption3"
+                  value="3"
+                  onclick="avatar_creation(this.value)"
+                >
+                  Option 3
+                </button>
+              </div>
+            </div>
+            <br />
+            <div id="output" class="w-80 text-center border d-none"></div>
+            <br />
+            <div id="actionsBox" class="w-80 text-center d-none">
+              <button
+                id="nextActBtn"
+                type="button"
+                class="btn btn-primary btn-custom-spacing"
+                onclick="next_act();"
+              >
+                Next ACT
+              </button>
+            </div>
+
+            <br />
+            <div
+              class="w-80 ratio ratio-16x9 align-items-center justify-content-center"
+            >
+              <img
+                id="imageHolder"
+                src=""
+                alt="Image"
+                class="img-fluid w-100 object-fit-contain d-none"
+              />
+            </div>
+            <br />
+            <div id="mintBox" class="w-80 text-center border d-none">
+              Mint a new unique event moment with one of our partners<br />
+              <img
+                src="assets/img/mint-galadriel.jpg"
+                style="cursor: pointer"
+              />
+              <img src="assets/img/mint-lilypad.jpg" style="cursor: pointer" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

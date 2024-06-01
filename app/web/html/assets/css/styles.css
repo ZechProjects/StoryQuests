@@ -1,0 +1,17 @@
+.blurred {
+  filter: blur(5px); /* Initial blur level */
+  animation: focusIn 2s ease-in-out forwards; /* Animation properties */
+}
+
+@keyframes focusIn {
+  from {
+    filter: blur(20px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+.btn-custom-spacing {
+  margin: 0 10px; /* Adjust the value as needed for desired spacing */
+}
