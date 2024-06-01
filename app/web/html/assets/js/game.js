@@ -15,8 +15,8 @@ function start_quest() {
   var mintBox = document.getElementById("mintBox");
   mintBox.classList.add("d-none");
 
-  var imageHolder = document.getElementById("imageHolder");
-  imageHolder.classList.add("d-none");
+  var imageBox = document.getElementById("imageBox");
+  imageBox.classList.add("d-none");
 
   var output = document.getElementById("output");
   output.classList.add("d-none");
@@ -72,9 +72,10 @@ function next_act() {
 function load_act() {
   console.log(game_data);
 
+  var imageBox = document.getElementById("imageBox");
+  imageBox.classList.add("d-none");
   var imageHolder = document.getElementById("imageHolder");
   imageHolder.src = game_data.result[act_id].image;
-  imageHolder.classList.remove("d-none");
   imageHolder.classList.remove("blurred");
   imageHolder.classList.add("blurred");
 
@@ -146,6 +147,9 @@ function generate_new_moment() {
   var imageHolder = document.getElementById("imageHolder");
   imageHolder.src = "assets/img/loading_image.jpg";
   imageHolder.classList.remove("blurred");
+
+  var imageBox = document.getElementById("imageBox");
+  imageBox.classList.remove("d-none");
 
   $("#loadingModal").modal("show");
 
