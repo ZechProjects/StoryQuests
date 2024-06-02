@@ -2,6 +2,11 @@ const baseURL = "http://localhost/StoryQuests";
 const defaultImg =
   baseURL + "/app/web/html/assets/cache/ninja-town-slime-leather_armor.png";
 
+var game_data;
+var avatar_data;
+var act_id = 0;
+var max_act = 2;
+
 function start_quest() {
   var chooseClass = document.getElementById("chooseClass");
   chooseClass.classList.remove("d-none");
@@ -21,6 +26,12 @@ function start_quest() {
   var output = document.getElementById("output");
   output.classList.add("d-none");
 
+  var shareBox = document.getElementById("shareBox");
+  shareBox.classList.add("d-none");
+
+  var gameBox = document.getElementById("gameBox");
+  gameBox.classList.remove("d-none");
+
   get_classes();
 }
 
@@ -39,9 +50,6 @@ function get_classes() {
   });
 }
 
-var game_data;
-var act_id = 0;
-var max_act = 2;
 function play_game(val) {
   var status = document.getElementById("status");
   status.classList.remove("d-none");
@@ -93,10 +101,45 @@ function load_act() {
     ".<br>";
 
   if (act_id >= max_act) {
-    output.innerHTML += "<h3>QUEST COMPLETED</h3><br>";
-    var actionsBox = document.getElementById("actionsBox");
-    actionsBox.classList.add("d-none");
+    end_game();
   }
+}
+
+function end_game() {
+  var output = document.getElementById("output");
+  output.innerHTML += "<h3>QUEST COMPLETED</h3><br>";
+  output.innerHTML +=
+    '<button class="btn btn-lg btn-primary" onclick="show_share_screen()">Share Replay</button><br><br>';
+  var actionsBox = document.getElementById("actionsBox");
+  actionsBox.classList.add("d-none");
+}
+
+function show_share_screen() {
+  var shareBox = document.getElementById("shareBox");
+  shareBox.classList.remove("d-none");
+
+  var gameBox = document.getElementById("gameBox");
+  gameBox.classList.add("d-none");
+
+  var replayContent = document.getElementById("replayContent");
+  replayContent.innerHTML = "";
+
+  var i = 0;
+  game_data.result.forEach((element) => {
+    i++;
+    replayContent.innerHTML += "<h3>ACT " + i + "</h3>";
+    replayContent.innerHTML +=
+      avatar_data.name +
+      " ventured into the " +
+      element.environment +
+      " and encountered a " +
+      element.encounters +
+      ".<br>";
+    replayContent.innerHTML +=
+      '<img src="' +
+      element.image +
+      '" class="img-fluid w-50 object-fit-contain" />';
+  });
 }
 
 function avatar_creation(val) {
@@ -119,15 +162,16 @@ function avatar_creation(val) {
   $.getJSON(
     baseURL + "/app/web/html/api/v1/get_avatar.php?class=" + val,
     function (data) {
-      statName.innerText = data.result.name;
-      statClass.innerText = data.result.class;
-      statLevel.innerText = data.result.level;
-      statHealth.innerText = data.result.health;
-      statMana.innerText = data.result.mana;
-      statStrength.innerText = data.result.strength;
-      statWisdom.innerText = data.result.wisdom;
-      statAgility.innerText = data.result.agility;
-      statLuck.innerText = data.result.luck;
+      avatar_data = data.result;
+      statName.innerText = avatar_data.name;
+      statClass.innerText = avatar_data.class;
+      statLevel.innerText = avatar_data.level;
+      statHealth.innerText = avatar_data.health;
+      statMana.innerText = avatar_data.mana;
+      statStrength.innerText = avatar_data.strength;
+      statWisdom.innerText = avatar_data.wisdom;
+      statAgility.innerText = avatar_data.agility;
+      statLuck.innerText = avatar_data.luck;
 
       play_game();
     }
@@ -152,7 +196,7 @@ function generate_new_moment() {
   imageBox.classList.remove("d-none");
 
   $("#loadingModal").modal("show");
-
+  //return;
   $.getJSON(url + message, function (data) {
     imageHolder.src = data.url;
     imageHolder.classList.add("blurred");
